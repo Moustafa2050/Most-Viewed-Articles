@@ -3,6 +3,12 @@ Most Viewed Articles
 
 NY Times Most Popular Articles API and show a list of articles,
 
+this app used the data from API website:
+  - https://developer.nytimes.com/
+ 
+ # setps to create your own app key : 
+  this clone contain the puplic app key but if you want to create your won app key folow this steps to create the api key :      https://developer.nytimes.com/get-started
+
 Getting Started
 # Prerequisites:
 - Xcode 12
