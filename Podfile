@@ -8,7 +8,7 @@ target 'Most Viewed Articles' do
   # Pods for Most Viewed Articles
 	pod 'Alamofire'
   pod 'SDWebImage'
-  pod 'SVProgressHUD'
+  
 
   target 'Most Viewed ArticlesTests' do
     inherit! :search_paths

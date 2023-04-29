@@ -13,15 +13,19 @@ class ArticlesListController: UIViewController {
     @IBOutlet weak var articlesTb: UITableView!
     
     private var viewModel: articlesListViewModel!
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
 
-    
     func setupView(){
         setupNavItems()
+        
+        view.addSubview(activityIndicator)
+        
         articlesTb.register(UINib(nibName: "articlesCell", bundle: nil), forCellReuseIdentifier: "articlesCell")
         articlesTb.dataSource = self
         articlesTb.delegate = self
@@ -29,8 +33,18 @@ class ArticlesListController: UIViewController {
         fetchArticles()
     }
     
+    override func viewWillLayoutSubviews() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+               activityIndicator.centerXAnchor.constraint(equalTo: articlesTb.centerXAnchor),
+               activityIndicator.centerYAnchor.constraint(equalTo: articlesTb.centerYAnchor)
+           ])
+    }
+    
     func fetchArticles() {
+           activityIndicator.startAnimating()
         viewModel.fetchArticles { [weak self] error in
+            self?.activityIndicator.stopAnimating()
                if let error = error {
                    print("Error fetching articles: \(error.localizedDescription)")
                } else {
@@ -42,13 +56,14 @@ class ArticlesListController: UIViewController {
     func setupNavItems(){
         // Create the menu button
         let menuButton = UIBarButtonItem(image: UIImage(named: "menu-icon"), style: .plain, target: self, action: #selector(menuButtonTapped))
+        menuButton.tintColor = .white
 
         // Create the search button
         let searchButton = UIBarButtonItem(image: UIImage(named: "search-icon"), style: .plain, target: self, action: #selector(searchButtonTapped))
-
+        searchButton.tintColor = .white
         // Create the dots button
         let dotsButton = UIBarButtonItem(image: UIImage(named: "dots-icon"), style: .plain, target: self, action: #selector(dotsButtonTapped))
-
+        dotsButton.tintColor = .white
         // Create the title label
         let titleLabel = UILabel()
         titleLabel.text = "NY Time Most Popular"
@@ -75,6 +90,17 @@ class ArticlesListController: UIViewController {
 
     @objc func dotsButtonTapped() {
         // Do something
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Set the navigation bar's background color
+        navigationController?.navigationBar.barTintColor = UIColor(named: "nav_color")
+        
+        // Set the navigation bar's title color
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
     }
 }
 extension ArticlesListController : UITableViewDataSource{
