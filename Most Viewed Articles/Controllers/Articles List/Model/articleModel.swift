@@ -19,7 +19,6 @@ struct responseGetArticles: Codable {
     }
 }
 
-// MARK: - Result
 struct ArticleModel: Codable {
     let uri: String?
     let url: String?
@@ -49,7 +48,6 @@ struct ArticleModel: Codable {
     }
 }
 
-// MARK: - Media
 struct Media: Codable {
     let type, subtype, caption, copyright: String?
     let approvedForSyndication: Int?
@@ -62,7 +60,6 @@ struct Media: Codable {
     }
 }
 
-// MARK: - MediaMetadatum
 struct MediaMetadatum: Codable {
     let url: String?
     let format: String?

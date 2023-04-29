@@ -63,7 +63,7 @@
     </scenes>
     <resources>
         <namedColor name="nav_color">
-            <color red="0.47843137254901957" green="0.90588235294117647" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.4779999852180481" green="0.90600001811981201" blue="0.78799998760223389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

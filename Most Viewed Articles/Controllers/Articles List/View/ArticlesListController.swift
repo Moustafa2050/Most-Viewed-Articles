@@ -11,6 +11,7 @@ class ArticlesListController: UIViewController {
     
     
     @IBOutlet weak var articlesTb: UITableView!
+    
     private var viewModel: articlesListViewModel!
     
     override func viewDidLoad() {
@@ -83,8 +84,9 @@ extension ArticlesListController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "articlesCell", for: indexPath) as? articlesCell {
-            let article = viewModel.article(at: indexPath.row)
+            if  let article = viewModel.article(at: indexPath.row) {
                 cell.configure(with: article)
+            }
             return cell
             
         }else{

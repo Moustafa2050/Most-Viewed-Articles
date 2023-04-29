@@ -12,13 +12,11 @@ import Alamofire
 class articlesListViewModel {
     
     // MARK: - Properties
-    
     private var sessionManagerInstance: sessionManager
     
     private var articles: [ArticleModel] = []
     
     // MARK: - Initialization
-    
     init(session: sessionManager) {
         self.sessionManagerInstance = session
     }
@@ -50,8 +48,8 @@ class articlesListViewModel {
         return articles.count
     }
     
-    func article(at index: Int) -> ArticleModel {
-        return articles[index]
+    func article(at index: Int) -> ArticleModel? {
+        return articles.count > index ?  articles[index] : nil
     }
     
 }
