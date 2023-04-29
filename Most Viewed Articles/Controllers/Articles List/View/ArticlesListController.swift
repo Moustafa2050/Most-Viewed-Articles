@@ -11,6 +11,7 @@ class ArticlesListController: UIViewController {
     
     
     @IBOutlet weak var articlesTb: UITableView!
+    private var viewModel: articlesListViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,19 @@ class ArticlesListController: UIViewController {
         articlesTb.register(UINib(nibName: "articlesCell", bundle: nil), forCellReuseIdentifier: "articlesCell")
         articlesTb.dataSource = self
         articlesTb.delegate = self
+        viewModel = articlesListViewModel(session: sessionManager.shared)
+        fetchArticles()
     }
+    
+    func fetchArticles() {
+        viewModel.fetchArticles { [weak self] error in
+               if let error = error {
+                   print("Error fetching articles: \(error.localizedDescription)")
+               } else {
+                   self?.articlesTb.reloadData()
+               }
+           }
+       }
     
     func setupNavItems(){
         // Create the menu button
@@ -63,18 +76,24 @@ class ArticlesListController: UIViewController {
         // Do something
     }
 }
-extension ArticlesListController : UITableViewDelegate , UITableViewDataSource{
+extension ArticlesListController : UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        return viewModel.numberOfArticles()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "articlesCell", for: indexPath) as? articlesCell {
+            let article = viewModel.article(at: indexPath.row)
+                cell.configure(with: article)
             return cell
+            
         }else{
             return UITableViewCell()
         }
     }
-    
-    
+}
+extension ArticlesListController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }

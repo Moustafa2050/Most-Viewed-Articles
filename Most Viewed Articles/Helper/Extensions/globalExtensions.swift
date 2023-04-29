@@ -14,3 +14,17 @@ extension UIImageView {
         self.clipsToBounds = true
     }
 }
+extension String {
+    func toDate() -> String? {
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        if let date = dateFormatterGet.date(from: self) {
+            let dateFormatterPrint = DateFormatter()
+            dateFormatterPrint.dateFormat = "yyyy-MM-dd"
+            return dateFormatterPrint.string(from: date)
+        } else {
+            return nil
+        }
+    }
+}

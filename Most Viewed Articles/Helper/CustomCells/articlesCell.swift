@@ -8,7 +8,7 @@
 import UIKit
 
 class articlesCell: UITableViewCell {
-
+    
     
     @IBOutlet weak var articaleImg: UIImageView!
     
@@ -24,14 +24,18 @@ class articlesCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
-    func configModelCell() {
+    func configure(with article: ArticleModel) {
+        articaleTitleLb.text = article.title
+        articaleHintLb.text = article.abstract
+        sourceArticleLb.text = article.byline
+        puplishedDateLb.text = article.updated?.toDate()
         
     }
     
