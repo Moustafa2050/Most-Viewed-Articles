@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SDWebImage
+
 
 class articlesCell: UITableViewCell {
     
@@ -34,9 +36,28 @@ class articlesCell: UITableViewCell {
     func configure(with article: ArticleModel) {
         articaleTitleLb.text = article.title
         articaleHintLb.text = article.abstract
-        sourceArticleLb.text = article.byline
+        sourceArticleLb.text = article.byline?.replacingOccurrences(of: "By", with: "").trimmingCharacters(in: .whitespaces)
         puplishedDateLb.text = article.updated?.toDate()
+        if(article.media?.count ?? 0 > 0){
+            if(article.media?[0].mediaMetadata?.count ?? 0 > 0){
+                if let imageURL = article.media?[0].mediaMetadata?[0].url {
+                    articaleImg.makeCircular()
+                    articaleImg.sd_setImage(with: URL(string: imageURL), placeholderImage: UIImage(named: "placeholder.png"))
+                }
+                
+               
+            }
+            
+        }
         
+    }
+    
+    override func prepareForReuse() {
+        articaleTitleLb.text = nil
+        articaleHintLb.text = nil
+        sourceArticleLb.text = nil
+        puplishedDateLb.text = nil
+        articaleImg.image = nil
     }
     
 }
